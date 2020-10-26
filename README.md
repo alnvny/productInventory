@@ -17,3 +17,53 @@ Setup instructions:
 * cd productInventory
 * execute   ``` npm install ```
 * installation successful if no issues in this process
+
+**URL** : `http://localhost:3001/productInventory:id`
+**URL Parameters** : `id=[integer]` where `id` is the ID of the product.
+**Auth required** : NO
+**Data**: `{}`
+## Success Response
+
+**Condition** : If Product exists in the collection for the requested product id.
+
+**Code** : `200 OK`
+
+**Content example**
+
+```json
+{
+    "productId": 1,
+    "productPrice": 73,
+    "productCurrency": "$",
+    "productInventory": 10
+}
+
+## Error Responses
+
+**Condition** : If product ID does not exist with provided `id` parameter.
+
+**Code** : `404 NOT FOUND`
+
+**Content** : `{
+    "error": "Product not found",
+    "errorMessage": [
+        "product with id 6788 does not exist"
+    ]
+}`
+
+### Or
+
+**Condition** : If product ID is not a type of number with provided `id` parameter.
+
+**Code** : `400 BAD REQUEST`
+
+**Content** :
+
+```json
+{
+    "error": "Bad request",
+    "errorMessage": [
+        "product id should be a number"
+    ]
+}
+```
