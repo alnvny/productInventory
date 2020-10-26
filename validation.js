@@ -5,7 +5,7 @@ let validateReqId = (id) => {
         obj.statusCode = 400;
         obj.errMessage = `product id missing in the url`;
         return obj;
-    } else if (typeof (id) !== 'number') {
+    } else if (isNaN(id)) {
         obj.success = false;
         obj.statusCode = 400;
         obj.errMessage = `product id should be a number`;

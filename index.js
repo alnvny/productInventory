@@ -26,7 +26,7 @@ app.get('/productInventory/:id', (req, res) => {
     let reqId = parseInt(req.params['id'])
     let isIDValid = validateReqId(reqId);
     if (!isIDValid.success) {
-        return res.status(isIDValid.statusCode).json({ error: `Bad request`, errorMessage: isIDValid.errMessage });
+        return res.status(isIDValid.statusCode).json({ error: `Bad request`, errorMessage: [isIDValid.errMessage] });
     }
     if (productInventoryDB[reqId]) {
         makeAPIRequest("GET", `${appConfig.thirdPartyUrl}/${reqId}`, function (error, response, body) {
@@ -46,7 +46,7 @@ app.get('/productInventory/:id', (req, res) => {
             }
         });
     } else {
-        return res.status(404).json({ error: `Product not found`, errorMessage: [`product with id ${reqId} does not exist`] });
+        return res.status(404).json({ error: `Product not found`, errorMessage: [`product with id ${req.params['id']} does not exist`] });
     }
 
 });
