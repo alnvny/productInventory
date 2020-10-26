@@ -23,29 +23,31 @@ app.use((err, req, res, next) => {
 });
 
 app.get('/productInventory/:id', (req, res) => {
-    let isIDValid = validateReqId(req.params.id);
+    let reqId = parseInt(req.params['id'])
+    let isIDValid = validateReqId(reqId);
+    console.log(isIDValid)
     if (!isIDValid.success) {
         return res.status(isIDValid.statusCode).json({ error: `Bad request`, errorMessage: isIDValid.errMessage });
     }
-    if (productInventoryDB[id]) {
-        makeAPIRequest("GET", `${appConfig.thirdPartyUrl}/${id}`, function (error, response, body) {
+    if (productInventoryDB[reqId]) {
+        makeAPIRequest("GET", `${appConfig.thirdPartyUrl}/${reqId}`, function (error, response, body) {
             if (error) {
                 return res.status(500).json({ error: `Server Error`, errorMessage: [error] });
             }
             if (response.statusCode === 200) {
                 let parsedResponse = JSON.parse(response.body);
                 let result = {};
-                result.productId = id;
+                result.productId = reqId;
                 result.productPrice = parsedResponse.price;;
                 result.productCurrency = parsedResponse.currency;
-                result.productInventory = productInventoryDB[id];
-                return result.status(response.statusCode).json([result]);
+                result.productInventory = productInventoryDB[reqId];
+                return res.status(response.statusCode).json([result]);
             } else {
-                return result.status(response.statusCode).json([response.statusMessage]);
+                return res.status(response.statusCode).json([response.statusMessage]);
             }
         });
     } else {
-        return res.status(404).json({ error: `Product not found`, errorMessage: [`product with id ${id} does not exist`] });
+        return res.status(404).json({ error: `Product not found`, errorMessage: [`product with id ${reqId} does not exist`] });
     }
 
 });

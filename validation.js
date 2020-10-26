@@ -1,6 +1,6 @@
 let validateReqId = (id) => {
     let obj = {};
-
+    console.log(typeof (id));
     if (id === undefined) {
         obj.success = false;
         obj.statusCode = 400;
