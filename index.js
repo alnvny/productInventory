@@ -25,7 +25,6 @@ app.use((err, req, res, next) => {
 app.get('/productInventory/:id', (req, res) => {
     let reqId = parseInt(req.params['id'])
     let isIDValid = validateReqId(reqId);
-    console.log(isIDValid)
     if (!isIDValid.success) {
         return res.status(isIDValid.statusCode).json({ error: `Bad request`, errorMessage: isIDValid.errMessage });
     }
@@ -41,7 +40,7 @@ app.get('/productInventory/:id', (req, res) => {
                 result.productPrice = parsedResponse.price;;
                 result.productCurrency = parsedResponse.currency;
                 result.productInventory = productInventoryDB[reqId];
-                return res.status(response.statusCode).json([result]);
+                return res.status(response.statusCode).json(result);
             } else {
                 return res.status(response.statusCode).json([response.statusMessage]);
             }
