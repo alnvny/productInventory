@@ -1,0 +1,5 @@
+{
+    "setProductIDLimit": 10,
+    "setProductQuantity": 10,
+    "thirdPartyUrl": "http://localhost:3000/product"
+}
