@@ -4,7 +4,7 @@ describe("validate validaton functions in application", function () {
     it("validate validateReqId", function (done) {
         expect(validateReqId(undefined)).toEqual({ success: false, statusCode: 400, errMessage: `product id missing in the url` });
         expect(validateReqId(1)).toEqual({ success: true });
-        expect(validateReqId('1')).toEqual({ success: false, statusCode: 400, errMessage: `product id should be a number` });
+        expect(validateReqId('1')).toEqual({ success: true });
         expect(validateReqId('dsd')).toEqual({ success: false, statusCode: 400, errMessage: `product id should be a number` });
         expect(validateReqId('@##')).toEqual({ success: false, statusCode: 400, errMessage: `product id should be a number` });
         done();
