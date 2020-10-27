@@ -3,9 +3,13 @@
 ## GET productInventory
 
 **URL** : `HostURL/productInventory:id`
+
 **URL Parameters** : `id=[integer]` where `id` is the ID of the product.
+
 **Auth required** : NO
+
 **Data**: `{}`
+
 ## Success Response
 
 **Condition** : If Product exists in the collection for the requested product id.
@@ -25,7 +29,7 @@
 
 ## Error Responses
 
-**Condition** : If product ID does not exist with provided `id` parameter.
+**Condition** : If productID does not exist with provided `id` parameter.
 
 **Code** : `404 NOT FOUND`
 
@@ -38,7 +42,7 @@
 
 ### Or
 
-**Condition** : If product ID is not a type of number with provided `id` parameter.
+**Condition** : If productID is not a type of number based on the provided `id` parameter.
 
 **Code** : `400 BAD REQUEST`
 
@@ -77,7 +81,7 @@ Another peoperty `giveAllInStock` is not mandatoy which has  boolean as a value
 
 **Data example** Product ID and number of quantity to be reserved for that ID should be sent in array of Objects  with `id` and `count` property, which will be the value for `product` property.
 
-  `giveAllInStock` property is set true if all the available stocks are to be consumed though there isn't stocks available that is requested.
+  `giveAllInStock` property is set true if all the available stocks are to be consumed or reserved though there isn't stocks available that is requested.
 
 ```json
 {
@@ -121,7 +125,7 @@ posted to `http://localhost:3001/productInventory` we get the below success resp
 
 ## Error Response
 
-**Condition** : Update cannot be performed for the requested stocks due to the lack of the stock
+**Condition** : Update cannot be performed for the requested stocks due to the lack of stock
 
 **Content example** : For the request body 
 ```json
@@ -201,7 +205,7 @@ We have consumed or reserved 10 quantity of `id:1` instead of 15, this request w
 ```
 **Data example**
 
-`giveAllInStock` property is set `false` for the request body where we assume `id:1` has only 10 resources to consume in the DB and  `id:2` also has 10 resources to consume in the DB but the request body had `count:15` for the `id:1` 
+`giveAllInStock` property is set `false` for the request body where we assume `id:1` has only 10 resources to consume or reserve in the DB and  `id:2` also has 10 resources to consume or reserve in the DB but the request body had `count:15` for the `id:1` 
 
 ```json
 {
@@ -214,7 +218,7 @@ We have consumed or reserved 10 quantity of `id:1` instead of 15, this request w
 **Code** : `404 NOT FOUND`
 
 **Content example**
-We dont consume or reserve for any resource as we have set  `giveAllInStock:false` which will be only succssful if we have all the requested resource in stock.
+We dont consume or reserve for any resource as we have set  `giveAllInStock:false` which will be only successful if we have all the requested resource in stock.
 ```json
 {
     "error": "one of more item(s) out of stock",
